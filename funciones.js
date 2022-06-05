@@ -33,7 +33,7 @@ function agregarLinea() {
   num2 = parseInt(num2, 10);
   num3 = parseInt(num3, 10);
 
-  var sumaValores = num1 + num2 + num3; //variable que guarda el valor de la suma de los 3 numeros
+  var sumaValores = num1 + num2 + num3; //Se guarda el valor de la suma de los 3 numeros
   /* Funciones que se encargan de devolver la imagen correspondiente a la línea */
   var valor = GenerarLinea(sumaValores); //Generamos el hexagrama original
   var valor2 = ConvertirLineaMutante(sumaValores); //Generamos la primer conversión
@@ -107,6 +107,18 @@ function borrarLinea() {
     uno.onmouseover = null;
     dos.onmouseover = null;
   }
+}
+
+function generarRandom() {
+  var val1, val2, val3, casilla1, casilla2, casilla3;
+  val1 = 2;
+  val2 = 2;
+  val3 = 3;
+  //Aqui va la función de generar aleatoriamente.
+  //Solo puede agarrar entre el 2 o el 3
+  document.getElementById("valor1").value = val1;
+  document.getElementById("valor2").value = val2;
+  document.getElementById("valor3").value = val3;
 }
 
 function verificaVal() {
@@ -246,10 +258,7 @@ let verificarNumero = (text) => {
   }
 };
 
-//Aqui se van comparando el arreglo guardado con cada una de las posblies opciones de hexagrama
 function obtenerDescripcion() {
-  //1 es yang ____________
-  //2 es yin  ____   _____
   const hexagramas = [
     [1, 1, 1, 1, 1, 1],
     [2, 2, 2, 2, 2, 2],
@@ -272,8 +281,8 @@ function obtenerDescripcion() {
     [2, 2, 2, 1, 2, 2],
     [1, 2, 2, 1, 1, 2],
     [2, 1, 1, 2, 2, 1],
-    [1, 1, 2, 2, 2, 2], //19
-    [2, 2, 2, 2, 1, 1], //20
+    [1, 1, 2, 2, 2, 2],
+    [2, 2, 2, 2, 1, 1],
 
     [1, 2, 2, 1, 2, 1],
     [1, 2, 1, 2, 2, 1],
@@ -297,9 +306,9 @@ function obtenerDescripcion() {
     [1, 2, 1, 2, 1, 1],
     [1, 1, 2, 1, 2, 1],
     [2, 2, 1, 2, 1, 2],
-    [2, 1, 2, 1, 2, 2], //40
+    [2, 1, 2, 1, 2, 2],
 
-    [1, 1, 2, 2, 2, 1], //41
+    [1, 1, 2, 2, 2, 1],
     [1, 2, 2, 2, 1, 1],
     [1, 1, 1, 1, 1, 2],
     [2, 1, 1, 1, 1, 1],
