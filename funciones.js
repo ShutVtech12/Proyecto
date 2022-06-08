@@ -58,6 +58,9 @@ function crearLinea(valor, nombreClase, columna) {
 }
 
 function borrarHexagrama() {
+  document.getElementById("valor1").value = "";
+  document.getElementById("valor2").value = "";
+  document.getElementById("valor3").value = "";
   while (
     lista[0].hasChildNodes() &&
     lista[1].hasChildNodes() &&
@@ -85,6 +88,9 @@ function borrarHexagrama() {
 }
 
 function borrarLinea() {
+  document.getElementById("valor1").value = "";
+  document.getElementById("valor2").value = "";
+  document.getElementById("valor3").value = "";
   if (
     lista[0].hasChildNodes() &&
     lista[1].hasChildNodes() &&
@@ -110,7 +116,7 @@ function borrarLinea() {
 }
 
 function generarRandom() {
-  var val1, val2, val3, casilla1, casilla2, casilla3;
+  var val1, val2, val3;
   val1 = Math.floor(Math.random() * 2) + 2;
   val2 = Math.floor(Math.random() * 2) + 2;
   val3 = Math.floor(Math.random() * 2) + 2;
