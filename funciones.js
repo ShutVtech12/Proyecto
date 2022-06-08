@@ -111,9 +111,9 @@ function borrarLinea() {
 
 function generarRandom() {
   var val1, val2, val3, casilla1, casilla2, casilla3;
-  val1 = 2;
-  val2 = 2;
-  val3 = 3;
+  val1 = Math.floor(Math.random() * 2) + 2;
+  val2 = Math.floor(Math.random() * 2) + 2;
+  val3 = Math.floor(Math.random() * 2) + 2;
   //Aqui va la función de generar aleatoriamente.
   //Solo puede agarrar entre el 2 o el 3
   document.getElementById("valor1").value = val1;
