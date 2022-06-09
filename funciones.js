@@ -1,4 +1,5 @@
 let tabla;
+//Declaracion de arreglos como pilas
 let celda = [];
 let lista = [];
 const lhexa = [];
@@ -11,120 +12,17 @@ var yin;
 var yanM;
 
 function iniciar() {
-  tabla = document.getElementById("hexg"); //obtenemos el elemento tbody
-  /* Creamos las 3 columnas de los hexagramas */
+  //Desde la carga se crean las columnas de la tabla
+  //Almacenamos los 3 td de la tabla generada
+  tabla = document.getElementById("hexg");
   lista[0] = document.createElement("td");
   lista[1] = document.createElement("td");
   lista[2] = document.createElement("td");
 
-  /* Agregamos la clase Hexa-td */
+  //Le agregamos la clase para los td
   lista[0].classList.add("Hexa-td");
   lista[1].classList.add("Hexa-td");
   lista[2].classList.add("Hexa-td");
-}
-
-function agregarLinea() {
-  /* Obtenemos los valores ingresados en el input */
-  var num1 = document.getElementById("valor1").value;
-  var num2 = document.getElementById("valor2").value;
-  var num3 = document.getElementById("valor3").value;
-  /* Parseamos el string a int */
-  num1 = parseInt(num1, 10);
-  num2 = parseInt(num2, 10);
-  num3 = parseInt(num3, 10);
-
-  var sumaValores = num1 + num2 + num3; //Se guarda el valor de la suma de los 3 numeros
-  /* Funciones que se encargan de devolver la imagen correspondiente a la línea */
-  var valor = GenerarLinea(sumaValores); //Generamos el hexagrama original
-  var valor2 = ConvertirLineaMutante(sumaValores); //Generamos la primer conversión
-  var valor3 = ConvertirLineaMutante2(sumaValores); //Generamos la segunda conversión
-  /* Creamos las lineas lineas */
-  crearLinea(valor, "linea", 0);
-  crearLinea(valor2, "lineaC", 1);
-  crearLinea(valor3, "lineaC", 2);
-}
-
-function crearLinea(valor, nombreClase, columna) {
-  //Tabla 1
-  celda[columna] = document.createElement("tr");
-  celda[columna].appendChild(valor);
-  celda[columna].classList.add(nombreClase);
-  if (lista[columna].hasChildNodes()) {
-    lista[columna].insertBefore(celda[columna], lista[columna].childNodes[0]);
-  } else {
-    lista[columna].appendChild(celda[columna]);
-  }
-  tabla.appendChild(lista[columna]);
-}
-
-function borrarHexagrama() {
-  document.getElementById("valor1").value = "";
-  document.getElementById("valor2").value = "";
-  document.getElementById("valor3").value = "";
-  while (
-    lista[0].hasChildNodes() &&
-    lista[1].hasChildNodes() &&
-    lista[2].hasChildNodes()
-  ) {
-    lista[0].removeChild(lista[0].lastChild);
-    lista[1].removeChild(lista[1].lastChild);
-    lista[2].removeChild(lista[2].lastChild);
-    lhexa.pop();
-    lhexa2.pop();
-    console.log(lhexa);
-  }
-
-  document.getElementById("descr").innerHTML = "Tu fortuna será revelada";
-  var tagHexagrama1 = document.getElementById("nombreHexagrama1");
-  tagHexagrama1.innerHTML = "";
-  var tagHexagrama2 = document.getElementById("nombreHexagrama2");
-  tagHexagrama2.innerHTML = "";
-  if (uno && dos) {
-    uno.removeAttribute("style");
-    dos.removeAttribute("style");
-    uno.onmouseover = null;
-    dos.onmouseover = null;
-  }
-}
-
-function borrarLinea() {
-  document.getElementById("valor1").value = "";
-  document.getElementById("valor2").value = "";
-  document.getElementById("valor3").value = "";
-  if (
-    lista[0].hasChildNodes() &&
-    lista[1].hasChildNodes() &&
-    lista[2].hasChildNodes()
-  )
-    lista[0].removeChild(lista[0].childNodes[0]);
-  lista[1].removeChild(lista[1].childNodes[0]);
-  lista[2].removeChild(lista[2].childNodes[0]);
-  lhexa.pop();
-  lhexa2.pop();
-  console.log(lhexa);
-  document.getElementById("descr").innerHTML = "Tu fortuna será revelada";
-  var tagHexagrama1 = document.getElementById("nombreHexagrama1");
-  tagHexagrama1.innerHTML = "";
-  var tagHexagrama2 = document.getElementById("nombreHexagrama2");
-  tagHexagrama2.innerHTML = "";
-  if (uno && dos) {
-    uno.removeAttribute("style");
-    dos.removeAttribute("style");
-    uno.onmouseover = null;
-    dos.onmouseover = null;
-  }
-}
-
-function generarRandom() {
-  var val1, val2, val3;
-  val1 = Math.floor(Math.random() * 2) + 2;
-  val2 = Math.floor(Math.random() * 2) + 2;
-  val3 = Math.floor(Math.random() * 2) + 2;
-  //Aqui va la función de generar aleatoriamente.
-  //Solo puede agarrar entre el 2 o el 3
-  document.getElementById("valor1").value = val1;
-  document.getElementById("valor2").value = val2;
-  document.getElementById("valor3").value = val3;
 }
 
 function verificaVal() {
@@ -164,7 +62,28 @@ function verificaVal() {
   }
 }
 
-function GenerarLinea(sumaValores) {
+function agregarLinea() {
+  //Recuperamos los valores de las 3 casillas
+  var num1 = document.getElementById("valor1").value;
+  var num2 = document.getElementById("valor2").value;
+  var num3 = document.getElementById("valor3").value;
+  /* Parseamos el string a int */
+  num1 = parseInt(num1, 10);
+  num2 = parseInt(num2, 10);
+  num3 = parseInt(num3, 10);
+  var sumaValores = num1 + num2 + num3; //Se guarda el valor de la suma de los 3 numeros
+  /* Funciones que se encargan de devolver la imagen correspondiente a la línea */
+  var valor = generacionLinea(sumaValores); //Generamos el hexagrama original
+  var valor2 = ConvertirLineaMutante(sumaValores); //Generamos la primer conversión
+  var valor3 = ConvertirLineaMutante2(sumaValores); //Generamos la segunda conversión
+  /* Creamos las lineas, enviando parametros del valor de las imagenes
+  el nombre de la clase y la columna*/
+  crearLinea(valor, "linea", 0);
+  crearLinea(valor2, "lineaC", 1);
+  crearLinea(valor3, "lineaC", 2);
+}
+
+function generacionLinea(sumaValores) {
   //funcion que retornara la linea correspondiente dependiendo el resultado de la suma
   switch (sumaValores) {
     case 6:
@@ -250,6 +169,94 @@ function ConvertirLineaMutante2(sumaValores) {
     default:
       return alert("Error al devolver la imagen.");
   }
+}
+
+function crearLinea(valor, nombreClase, columna) {
+  //Se guarda en el arreglo celda en el lugar marcado por la columna la creacion de
+  //la fila en la tabla, se crea el hijo con el valor de la imagen y el nombre de la clase
+  celda[columna] = document.createElement("tr");
+  celda[columna].appendChild(valor);
+  celda[columna].classList.add(nombreClase);
+  //Si la lista de la tabla notiene hijos entonces hará una insercion de la celda generada a partir del
+  //nodo padre
+  if (lista[columna].hasChildNodes()) {
+    lista[columna].insertBefore(celda[columna], lista[columna].childNodes[0]);
+  } else {
+    //Si no entonces seguira de forma normal
+    lista[columna].appendChild(celda[columna]);
+  }
+  //se agrega a la tabla la columna que almacenamos en la lista
+  tabla.appendChild(lista[columna]);
+}
+
+function borrarHexagrama() {
+  document.getElementById("valor1").value = "";
+  document.getElementById("valor2").value = "";
+  document.getElementById("valor3").value = "";
+  while (
+    lista[0].hasChildNodes() &&
+    lista[1].hasChildNodes() &&
+    lista[2].hasChildNodes()
+  ) {
+    lista[0].removeChild(lista[0].lastChild);
+    lista[1].removeChild(lista[1].lastChild);
+    lista[2].removeChild(lista[2].lastChild);
+    lhexa.pop();
+    lhexa2.pop();
+    console.log(lhexa);
+  }
+
+  document.getElementById("descr").innerHTML = "Tu fortuna será revelada";
+  var tagHexagrama1 = document.getElementById("nombreHexagrama1");
+  tagHexagrama1.innerHTML = "";
+  var tagHexagrama2 = document.getElementById("nombreHexagrama2");
+  tagHexagrama2.innerHTML = "";
+  if (uno && dos) {
+    uno.removeAttribute("style");
+    dos.removeAttribute("style");
+    uno.onmouseover = null;
+    dos.onmouseover = null;
+  }
+}
+
+function borrarLinea() {
+  document.getElementById("valor1").value = "";
+  document.getElementById("valor2").value = "";
+  document.getElementById("valor3").value = "";
+  if (
+    lista[0].hasChildNodes() &&
+    lista[1].hasChildNodes() &&
+    lista[2].hasChildNodes()
+  )
+    lista[0].removeChild(lista[0].childNodes[0]);
+  lista[1].removeChild(lista[1].childNodes[0]);
+  lista[2].removeChild(lista[2].childNodes[0]);
+  lhexa.pop();
+  lhexa2.pop();
+  console.log(lhexa);
+  document.getElementById("descr").innerHTML = "Tu fortuna será revelada";
+  var tagHexagrama1 = document.getElementById("nombreHexagrama1");
+  tagHexagrama1.innerHTML = "";
+  var tagHexagrama2 = document.getElementById("nombreHexagrama2");
+  tagHexagrama2.innerHTML = "";
+  if (uno && dos) {
+    uno.removeAttribute("style");
+    dos.removeAttribute("style");
+    uno.onmouseover = null;
+    dos.onmouseover = null;
+  }
+}
+
+function generarRandom() {
+  var val1, val2, val3;
+  val1 = Math.floor(Math.random() * 2) + 2;
+  val2 = Math.floor(Math.random() * 2) + 2;
+  val3 = Math.floor(Math.random() * 2) + 2;
+  //Aqui va la función de generar aleatoriamente.
+  //Solo puede agarrar entre el 2 o el 3
+  document.getElementById("valor1").value = val1;
+  document.getElementById("valor2").value = val2;
+  document.getElementById("valor3").value = val3;
 }
 
 let verificarNumero = (text) => {
